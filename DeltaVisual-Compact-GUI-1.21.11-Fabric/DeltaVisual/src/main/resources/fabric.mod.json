@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "delta_visual",
+  "version": "${version}",
+  "name": "Delta Visual",
+  "description": "A configurable, cosmetic-first visual client for Minecraft Java Edition.",
+  "authors": ["Delta Visual"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.deltavisual.DeltaVisualClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
