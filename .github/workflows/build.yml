@@ -1,32 +1,49 @@
-
 name: Build Delta Visual
 
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: read
 
 jobs:
   build:
+    name: Build Fabric Mod
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java 21
+      - name: Set up Microsoft JDK 21
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: microsoft
           java-version: '21'
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Verify project files
+        working-directory: DeltaVisual-Compact-GUI-1.21.11-Fabric/DeltaVisual
+        run: |
+          echo "Checking project directory..."
+          test -f build.gradle -o -f build.gradle.kts
+          echo "Project files found."
+
       - name: Build mod
-        run: gradle build
+        working-directory: DeltaVisual-Compact-GUI-1.21.11-Fabric/DeltaVisual
+        run: gradle build --no-daemon --stacktrace
 
       - name: Upload JAR
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: DeltaVisual-JAR
-          path: build/libs/*.jar
+          path: DeltaVisual-Compact-GUI-1.21.11-Fabric/DeltaVisual/build/libs/*.jar
+          if-no-files-found: error
+          retention-days: 7
