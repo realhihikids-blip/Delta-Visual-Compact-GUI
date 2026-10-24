@@ -183,3 +183,13 @@ public final class DeltaClickGui extends Screen {
     @Override public void close() { DeltaConfig.save(); if (client != null) client.setScreen(null); }
     @Override public boolean shouldPause() { return false; }
 }
+
+@Override
+public boolean keyPressed(net.minecraft.client.input.KeyInput input) {
+    if (input.code() == 256) {
+        this.close();
+        return true;
+    }
+    return super.keyPressed(input);
+}
+
