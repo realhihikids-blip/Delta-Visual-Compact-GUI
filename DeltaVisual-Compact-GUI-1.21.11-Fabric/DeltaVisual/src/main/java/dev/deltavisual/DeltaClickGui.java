@@ -184,7 +184,7 @@ public final class DeltaClickGui extends Screen {
     @Override public boolean shouldPause() { return false; }
 @Override
 public boolean keyPressed(net.minecraft.client.input.KeyInput input) {
-    if (input.code() == 256) {
+    if (input.key() == 256) {
         this.close();
         return true;
     }
